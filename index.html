@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Сравнение цен — УЗИ</title>
+  <meta name="description" content="Публичная витрина для сравнения цен на УЗИ между клиниками. Фильтры, сравнение, пояснения, экспорт CSV." />
+  <link rel="stylesheet" href="./styles.css" />
+</head>
+<body>
+  <header class="topbar">
+    <div class="topbar__left">
+      <div class="brand">
+        <div class="brand__title" id="pageTitle">Сравнение цен на УЗИ</div>
+        <div class="brand__subtitle" id="pageSubtitle">Фильтры → таблица сравнения</div>
+      </div>
+      <div class="metaLine" id="metaLine"></div>
+    </div>
+
+    <div class="topbar__right">
+      <div class="segmented" id="branchToggle" aria-label="Филиал"></div>
+
+      <button class="btn" id="btnCopyLink" title="Скопировать ссылку на текущие фильтры">Ссылка</button>
+      <button class="btn btn--primary" id="btnExportCsv">CSV</button>
+    </div>
+  </header>
+
+  <main class="container">
+    <section class="filtersCard">
+      <div class="filtersGrid">
+        <div class="field">
+          <label class="label" for="categorySelect">Категория</label>
+          <select id="categorySelect" class="select"></select>
+        </div>
+
+        <div class="field">
+          <label class="label" for="typeSelect">Тип</label>
+          <select id="typeSelect" class="select"></select>
+        </div>
+
+        <div class="field field--wide">
+          <label class="label" for="searchInput">Поиск</label>
+          <input id="searchInput" class="input" type="text" placeholder="Напр.: печень, A-FAST, беременность, цистоцентез..." />
+        </div>
+      </div>
+
+      <div class="togglesRow">
+        <label class="check"><input type="checkbox" id="onlyComparable" /> <span>Только где есть сравнение</span></label>
+        <label class="check"><input type="checkbox" id="hideMissingOurs" /> <span>Скрыть “—” у нас</span></label>
+        <label class="check"><input type="checkbox" id="relativeMode" checked /> <span>Разница к нашей</span></label>
+
+        <div class="field field--sort">
+          <label class="label" for="sortSelect">Сортировка</label>
+          <select id="sortSelect" class="select">
+            <option value="name">По названию</option>
+            <option value="ourPrice">По нашей цене</option>
+            <option value="minPrice">По минимальной цене</option>
+            <option value="maxDelta">По максимальной разнице</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="clinicsBar">
+        <div class="clinicsBar__label">Клиники:</div>
+        <div class="clinicsChips" id="clinicsChips"></div>
+      </div>
+    </section>
+
+    <section class="tableCard">
+      <div class="tableTop">
+        <div class="kpis">
+          <div class="kpi"><span class="kpi__num" id="rowsCount">0</span><span class="kpi__lbl">строк</span></div>
+          <div class="kpi"><span class="kpi__num" id="comparableCount">0</span><span class="kpi__lbl">со сравнением</span></div>
+        </div>
+        <div class="note" id="noteRight"></div>
+      </div>
+
+      <div class="tableWrap">
+        <table class="table" id="comparisonTable">
+          <thead id="tableHead"></thead>
+          <tbody id="tableBody"></tbody>
+        </table>
+      </div>
+
+      <div class="footerHint">
+        Пояснение к цене: кнопка <b>i</b> рядом с ценой (когда позиция складывается по-другому).
+      </div>
+    </section>
+  </main>
+
+  <div class="toast" id="toast" aria-live="polite" aria-atomic="true"></div>
+  <script src="./app.js"></script>
+</body>
+</html>
